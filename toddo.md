@@ -1,0 +1,2 @@
+- [ ] CRUD for Hero ( Hero API routes)
+- [ ] CRUD for SuperPower ( Superpower APIroutes)
