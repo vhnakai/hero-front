@@ -6,11 +6,6 @@ export const HeroContainer = styled.main`
 
   display: flex;
   flex-direction: column;
-
-  h1 {
-    font-size: 1.5rem;
-    color: ${(props) => props.theme['gray-100']};
-  }
 `
 export const HeroList = styled.div`
   flex: 1;
@@ -58,4 +53,28 @@ export const HeroList = styled.div`
       }
     }
   }
+`
+
+export const HeroHeader = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+
+  h1 {
+    font-size: 1.5rem;
+    color: ${(props) => props.theme['gray-100']};
+  }
+`
+
+
+
+export const HeroButton = styled.button`
+  width: 100px;
+  height: 40px;
+
+  border-radius: 4px;
+  border: 0;
+
 `

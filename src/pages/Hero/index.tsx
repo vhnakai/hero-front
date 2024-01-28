@@ -1,32 +1,31 @@
 
-import { HeroContainer, HeroList } from './styles'
+import { Link, useLoaderData } from 'react-router-dom'
+import { HeroButton, HeroContainer, HeroHeader, HeroList } from './styles'
 
-interface HeroesInterface {
-
+export interface HeroInterface {
   id: number,
   name: string,
   heroName: string
-
+  birthDate: string
+  heigth: number
+  weigh: number
 }
 
-export function Hero() {
+export function Heroes() {
 
-  const heroes: HeroesInterface[] = [
-    {
-      "id": 2,
-      "name": "Utena",
-      "heroName": "MagiaBaiser",
-    },
-    {
-      "id": 3,
-      "name": "Kiwi",
-      "heroName": "MagiaLeo",
-    }
-  ]
+  const heroes = useLoaderData() as HeroInterface[];
+
   return (
     <HeroContainer>
-      <h1>Heroes</h1>
       <HeroList>
+        <HeroHeader>
+          <h1>Heroes</h1>
+          <Link to={`/hero/`} >
+            <HeroButton>
+              New Hero
+            </HeroButton>
+          </Link>
+        </HeroHeader>
         <table>
           <thead>
             <tr>
@@ -43,7 +42,11 @@ export function Hero() {
                   <td>{hero.name}</td>
                   <td>{hero.heroName}</td>
                   <td>
-                    <a href={`/hero/${hero.id}`} >access</a>
+                    <Link to={`/hero/${hero.id}`} >            
+                      <HeroButton>
+                        view
+                      </HeroButton>
+                    </Link>
                   </td>
                 </tr>
               )
@@ -57,4 +60,5 @@ export function Hero() {
 
 }
 
-//will have a table with name , hero name , action button
+//will have a table with name , hero name , view button and a modal with form to add new Hero
+
