@@ -1,9 +1,9 @@
 //Form to Update or Create a new Hero
 import { Link, useLoaderData, useParams } from "react-router-dom";
-import { FormProvider, useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormContainer, BaseInput, AmountInput, ActionFooter } from "./styles";
+import { FormContainer, BaseInput, AmountInput, ActionFooter, Calendar } from "./styles";
 import { HeroInterface } from "..";
 import { HeroButton } from "../styles";
 
@@ -20,7 +20,7 @@ type heroFormData = zod.infer<typeof heroFormValidationSchema>
 export function HeroForm() {
 
   const params = useParams();
-  const hero_id = params.id ? Number(params.id) : 0
+  const hero_id = Number(params.id);
   const { name, heroName, birthDate, heigth, weigh } = useLoaderData() as HeroInterface;
 
   const heroForm = useForm<heroFormData>(
@@ -36,7 +36,7 @@ export function HeroForm() {
     }
   )
 
-  const { handleSubmit, register } = heroForm;
+  const { handleSubmit, register, control } = heroForm;
 
   function handleUpdateHero(data: heroFormData, id: number) {
 
@@ -54,23 +54,25 @@ export function HeroForm() {
           <label htmlFor="name">Name</label>
           <BaseInput
             id='name'
-            value={name}
             {...register('name')}
           />
 
           <label htmlFor="heroName">Hero name</label>
           <BaseInput
             id="heroName"
-            value={heroName}
             {...register('heroName')}
           />
 
           <label htmlFor="birthDate">Birthdate</label>
-          <BaseInput
-            id="birthDate"
-            type="date"
-            value={birthDate}
-            {...register('birthDate')}
+          <Controller
+            control={control}
+            name='birthDate'
+            render={({ field,  }) => (
+              <Calendar
+                onChange={field.onChange}
+                selected={field.value}
+              />
+          )}
           />
 
           <label htmlFor="heigthInCentimetres">Heigth</label>
@@ -78,8 +80,7 @@ export function HeroForm() {
             id="heigthInCentimetres"
             type="number"
             placeholder="00"
-            value={heigth}
-            {...register('heigth')}
+           {...register('heigth', { valueAsNumber: true })}
           ></AmountInput>
 
           <label htmlFor="weighInKilo">Weigh</label>
@@ -87,8 +88,7 @@ export function HeroForm() {
             id="weighInKilo"
             type="number"
             placeholder="00"
-            value={weigh}
-            {...register('weigh')}
+            {...register('weigh', { valueAsNumber: true })}
           ></AmountInput>
 
           <ActionFooter>

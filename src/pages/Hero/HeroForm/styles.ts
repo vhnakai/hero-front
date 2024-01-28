@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export const FormContainer = styled.main`
   flex: 1;
@@ -52,4 +55,25 @@ export const ActionFooter = styled.div`
   justify-content: space-between;
   margin:1rem 0;
   align-items: center;
+`
+
+
+export const Calendar = styled(DatePicker)`
+  background: transparent;
+  width: 30rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+
+
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: ${(props) => props.theme['gray-100']};
+
+  border: 0;
+  border-bottom: 2px solid ${(props) => props.theme['gray-500']};
+
+  &:focus {
+    box-shadow: none;
+    border-color: ${(props) => props.theme['green-500']};
+  }
 `
